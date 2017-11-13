@@ -11,7 +11,6 @@ class PaypalButton extends React.Component{
 		});
 	}
 	onAuthorize = (data) => {
-		debugger
 		console.log('The payment was authorized!');
 		console.log('Payment ID = ',data.paymentID);
 		console.log('PayerID = ', data.payerID);
