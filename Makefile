@@ -7,7 +7,7 @@ all:
 	@echo "class $(component) extends React.Component{" >> src/components/$(component)/$(component).js
 	@echo "	render(){" >> src/components/$(component)/$(component).js
 	@echo "		return(" >> src/components/$(component)/$(component).js
-	@echo "			<div className="$(component)">" >> src/components/$(component)/$(component).js
+	@echo "			<div className='$(component)'>" >> src/components/$(component)/$(component).js
 	@echo "			</div>" >> src/components/$(component)/$(component).js
 	@echo "		)" >> src/components/$(component)/$(component).js
 	@echo "	}" >> src/components/$(component)/$(component).js

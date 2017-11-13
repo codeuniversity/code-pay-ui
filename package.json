@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "paypal-checkout": "^4.0.161",
     "query-string": "^5.0.1",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",

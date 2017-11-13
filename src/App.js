@@ -4,6 +4,7 @@ import Store from './services/Store';
 import StorageAdaptor from './services/StorageAdaptor';
 import queryString from 'query-string';
 import ImageUpload from './ImageUpload';
+import PaypalButton from './components/PaypalButton/PaypalButton';
 class App extends Component {
   getCollections=()=>{
     Store.get('collections').then(collections=>{
@@ -46,6 +47,7 @@ class App extends Component {
         <a href='http://localhost:3000/auth/google_oauth2?auth_origin_url=http://localhost:3005'>Google</a>
         <button onClick={this.getCollections}>Get!</button>
         <ImageUpload onUpload={this.onImageUpload}/>
+        <PaypalButton/>
       </div>
     );
   }
