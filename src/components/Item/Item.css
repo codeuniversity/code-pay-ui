@@ -1,0 +1,12 @@
+.Item{
+    padding: 10px;
+    overflow: auto;
+}
+.Item-img{
+    float: left;
+    /* height: 100%; */
+    margin-right: 10px;
+}
+.Item-name, .Item-description{
+    font-weight:200;
+}

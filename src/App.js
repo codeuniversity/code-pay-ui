@@ -3,8 +3,10 @@ import './App.css';
 import Store from './services/Store';
 import StorageAdaptor from './services/StorageAdaptor';
 import queryString from 'query-string';
-import ImageUpload from './ImageUpload';
-import PaypalButton from './components/PaypalButton/PaypalButton';
+import GoogleLink from './components/GoogleLink/GoogleLink'
+import Router from './Router';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 class App extends Component {
   getCollections=()=>{
     Store.get('collections').then(collections=>{
@@ -12,7 +14,7 @@ class App extends Component {
       console.log(Store);
     })
   }
-  componentDidMount(){
+  componentWillMount(){
     var params = queryString.parse(window.location.search)
 
     if (params["auth_token"] && params["uid"] && params["client_id"] && params["expiry"]) {
@@ -29,7 +31,7 @@ class App extends Component {
       params["uid"] = undefined;
       params["client_id"] = undefined;
       params["expiry"] = undefined;
-      window.location.search = Store.constructQueryParams(params);
+    window.location.search = '?';
     }
   }
   onImageUpload= async (location)=>{
@@ -40,16 +42,21 @@ class App extends Component {
     console.log(imageResult);
   }
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-        </header>
-        <a href='http://localhost:3000/auth/google_oauth2?auth_origin_url=http://localhost:3005'>Google</a>
-        <button onClick={this.getCollections}>Get!</button>
-        <ImageUpload onUpload={this.onImageUpload}/>
-        <PaypalButton/>
-      </div>
-    );
+    if(Store.isAuthenticated()){
+      return (
+        <div className="App">
+          <Router/>
+        </div>
+      );
+    }else{
+      return (
+        <div>
+          <MuiThemeProvider>
+            <GoogleLink />
+          </MuiThemeProvider>
+        </div>
+      )
+    }
   }
 }
 

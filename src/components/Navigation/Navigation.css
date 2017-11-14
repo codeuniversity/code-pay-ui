@@ -1,0 +1,22 @@
+.Navigation{
+}
+.logout{
+    background-color: white;
+    color: #f44961;
+    padding: 10px;
+    float: right;
+    cursor: pointer;
+}
+.nav-link{
+    float: left;
+    color: white;
+    line-height: 40px;
+    font-size: 30px;
+    font-weight: 200;
+}
+.app-header {
+    background-color: #f44961;
+    padding: 2px;
+    overflow: auto;
+    color: white;
+}
