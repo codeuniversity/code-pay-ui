@@ -1,0 +1,22 @@
+.AmountSelector{
+    float: right;
+    height: 30px;
+    line-height: 10px;
+    position: relative;
+    top: 5px;
+}
+.AmountSelector-amount{
+    position: relative;
+    bottom: 12px;
+    font-size: 23px;
+    font-weight: 200;
+}
+.AmountSelector .add , .AmountSelector .clear{
+    cursor: pointer;
+    height: 40px !important;
+    width: 40px !important;
+    stroke: white;
+}
+.AmountSelector svg path{
+    border: 1px solid black;
+}

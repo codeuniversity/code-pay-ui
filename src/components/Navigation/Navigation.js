@@ -15,6 +15,7 @@ class Navigation extends React.Component{
 			<div className='Navigation'>
 				<div className='app-header'>
 					<Link to="/" className="nav-link Home">Home</Link>
+					<Link to="/profile" className="nav-link Profile">Profile</Link>
 					<div className='logout' onClick={this.onLogout}>Logout</div>
 				</div>
 				<div className='main-body'>
