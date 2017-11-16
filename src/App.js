@@ -31,7 +31,7 @@ class App extends Component {
       params["uid"] = undefined;
       params["client_id"] = undefined;
       params["expiry"] = undefined;
-    window.location.search = '?';
+      window.location.search = '?';
     }
   }
   onImageUpload= async (location)=>{

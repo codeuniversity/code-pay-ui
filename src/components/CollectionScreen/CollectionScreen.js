@@ -5,9 +5,8 @@ import Item from '../Item/Item';
 import AmountSelector from '../AmountSelector/AmountSelector';
 import utils from '../../utils';
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-class PriceScreen extends React.Component{
+import BaseComponent from '../BaseComponent/BaseComponent'
+class PriceScreen extends BaseComponent{
 render(){
 	let price = this.props.price;
 	let correctPrice = Math.round(price*100)/100;
@@ -24,30 +23,45 @@ render(){
 	)
 }
 }
-class CollectionScreen extends React.Component{
-	state = {
+class CollectionScreen extends BaseComponent{
+	state = Object.assign(this.state,{
 		collection: null,
 		items: [],
 		images: [],
 		transactions: {},
 		buying: false,
-	}
+	})
 	getCollection = async ()=>{
-		let collection_id = this.props.match.params.collection_id;
-		let collection = await Store.get(`collections/${collection_id}`);
-		this.setState({collection});
+		try {
+			let collection_id = this.props.match.params.collection_id;
+			let collection = await Store.get(`collections/${collection_id}`);
+			this.setState({collection});
+		} catch (error) {
+			this.showMessage(error.message);
+		}
+
 	}
 	getItems = async ()=>{
-		let collection_id = this.props.match.params.collection_id;
-		let items = await Store.get(`collections/${collection_id}/items`);
-		this.setState({items});
+		try {
+			let collection_id = this.props.match.params.collection_id;
+			let items = await Store.get(`collections/${collection_id}/items`);
+			this.setState({items});
+		} catch (error) {
+			this.showMessage(error.message);
+		}
+
 	}
 	getImages = async ()=>{
-		let collection_id = this.props.match.params.collection_id;
-		let images = await Store.get(`collections/${collection_id}/images`);
-		this.setState({images});
+		try {
+			let collection_id = this.props.match.params.collection_id;
+			let images = await Store.get(`collections/${collection_id}/images`);
+			this.setState({images});
+		} catch (error) {
+			this.showMessage(error.message);
+		}
+
 	}
-	loadResources(){
+	loadResources = async ()=>{
 		this.getCollection();
 		this.getItems();
 		this.getImages();
@@ -96,10 +110,12 @@ class CollectionScreen extends React.Component{
 		});
 		Promise.all(promises).then(()=>{
 			this.setState({buying:false});
-			alert('transactions saved, remember to pay at some point...');
+			this.props.history.push("/profile");
+			this.props.history.goForward();
 		});
 	}
 	render(){
+		this.preRender();
 		let {transactions, items, buying} = this.state;
 		let totalPrice = this.getPrice();
 		return(
@@ -108,7 +124,7 @@ class CollectionScreen extends React.Component{
 				<div className='CollectionScreen-images'></div>
 				<div className='CollectionScreen-items'>
 					{items.map(item=>(
-						<Item item={item}>
+						<Item item={item} key={item.id}>
 							<AmountSelector id={item.id} onChange={this.onAmountChange} amount={transactions[item.id] || 0}/>
 						</Item>
 					))}
@@ -118,6 +134,7 @@ class CollectionScreen extends React.Component{
 						<div className="Buy-Button" onClick={this.makeTransactions} disabled={buying}>Buy</div>
 					</PriceScreen>
 				</div>
+			{this.snackBar()}
 			</div>
 		)
 	}

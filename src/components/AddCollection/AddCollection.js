@@ -96,7 +96,7 @@ class AddCollection extends React.Component{
 				validItemCount++;
 			}
 		});
-		if(validItemCount == 0){
+		if(validItemCount === 0){
 			return true;
 		}
 		return false;
@@ -106,7 +106,10 @@ class AddCollection extends React.Component{
 		Store.post('collections',{name: collectionName}).then(collection=>{
 			console.log(collection);
 			let promises = items.map(item=>{
-				if(!(item.name && item.price)){return}
+				if(!(item.name && item.price)){
+					return new Promise((resolve,reject)=>{
+						resolve();
+				})}
 				let itemObj = {name: item.name, price: item.price};
 				if(item.amount){
 					itemObj.amount = item.amount;

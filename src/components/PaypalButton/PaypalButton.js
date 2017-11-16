@@ -15,7 +15,9 @@ class PaypalButton extends React.Component{
 		console.log('Payment ID = ',data.paymentID);
 		console.log('PayerID = ', data.payerID);
 		Store.post('paypal/execute', {payment_id: data.paymentID, payer_id: data.payerID})
-		.then(data=>console.log(data))
+		.then(data=>{
+			this.props.onPaid();
+		})
 		.catch(error=>console.log(error));
 	}
 	onCancel = (data)=>{
@@ -28,6 +30,12 @@ class PaypalButton extends React.Component{
 			payment: this.payment,
 			onAuthorize: this.onAuthorize,
 			onCancel: this.onCancel,
+			style: {
+				size: 'responsive',
+				color: 'blue',
+				shape: 'rect',
+				label: 'pay'
+			},
 		},'#PaypalButtonContainer');
 	}
 	render(){
@@ -38,4 +46,4 @@ class PaypalButton extends React.Component{
 		)
 	}
 }
-export default PaypalButton
+export default PaypalButton;

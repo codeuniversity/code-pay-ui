@@ -3,7 +3,6 @@ import './Item.css';
 import utils from '../../utils';
 // import {Card, CardText} from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
-import ImageUpload from '../../ImageUpload'
 import Store from '../../services/Store';
 class Item extends React.Component{
 	updateImage = (location) =>{
@@ -19,7 +18,7 @@ class Item extends React.Component{
 		let {image, name, price, amount_left} = this.props.item;
 		return(
 			<Paper className='Item margy'>
-				{image ? <img src={image.thumb} className="Item-img"/> : ''}
+				{image ? <img src={image.thumb} className="Item-img" alt=''/> : ''}
 				{this.props.children}
 				<div className='Item-body'>
 					<h2 className='marginless Item-name'>{name}</h2>
