@@ -2,12 +2,36 @@
     font-size: 40px;
     color: white;
     position: absolute;
-    left: calc(50% - 60px);
-    top: calc(50% - 10px);
+    left: calc(50% - 144px);
+    top: calc(50% - 98px);
+    text-align: center;
 }
 .GoogleLink-container{
     position: relative;
     width: 100vw;
     height: 100vh;
-    background-color: #f44961;
+    background-color: #ea4d5f;
+
+}
+.GoogleLink-logo{
+    max-width: 200px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.GoogleLink-link{
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid white;
+    float: left;
+    text-align: center;
+    font-size: 18px;
+}
+
+@media (max-width: 414px){
+    .GoogleLink{
+      left: 0;
+      width: 100vw;
+      padding: 0 10vw;
+    }
 }
