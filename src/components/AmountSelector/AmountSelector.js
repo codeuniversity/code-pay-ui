@@ -10,7 +10,7 @@ class AmountSelector extends React.Component{
 		let amount = this.props.amount;
 		return(
 			<div className='AmountSelector'>
-				<ContentClear className="clear" onClick={()=>{this.onAmountChange(amount-1)}}/>
+				<ContentClear className="clear" onClick={()=>{this.onAmountChange(amount-1 >= 0 ? amount-1 : amount)}}/>
 				<span className="AmountSelector-amount">{amount}</span>
 				<ContentAdd className="add" onClick={()=>{this.onAmountChange(amount+1)}}/>
 			</div>
