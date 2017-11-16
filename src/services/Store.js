@@ -1,10 +1,7 @@
 import StorageAdaptor from './StorageAdaptor';
 
-var API_URL = "https://wims-api.herokuapp.com/";
-if(process.env.NODE_ENV === "development"){
-   API_URL = "http://localhost:3000/";
+var API_URL = process.env.REACT_APP_API_URL+'/';
 
-}
 
 function get(url){
   var receiveHeaders = {
