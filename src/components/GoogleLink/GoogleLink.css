@@ -10,8 +10,15 @@
     position: relative;
     width: 100vw;
     height: 100vh;
-    background-color: #ea4d5f;
-
+    background-color: #ea4d5f;     
+    background: linear-gradient(135deg, #46a6fd,#9b41fe); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ 
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#46a6fd', endColorstr='#9b41fe',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */   
+    }
+.bubbles{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../../assets/fling_pattern.png);
 }
 .GoogleLink-logo{
     max-width: 200px;
