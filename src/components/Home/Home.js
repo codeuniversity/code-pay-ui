@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import BaseComponent from '../BaseComponent/BaseComponent'
+import Divider from 'material-ui/Divider';
 class CollectionListItem extends React.Component{
 	render(){
 		let {collection} = this.props;
@@ -26,26 +27,42 @@ class CollectionListItem extends React.Component{
 
 class Home extends BaseComponent{
 	state = Object.assign(this.state,{
-		collections:[],
+		publicCollections: [],
+		myCollections: []
 	})
-	getCollections = async ()=>{
+	getPublicCollections = async ()=>{
 		try {
-			let collections = await Store.get('collections');
-			this.setState({collections});
+			let publicCollections = await Store.get('collections');
+			this.setState({publicCollections});
+		} catch (error) {
+			this.showMessage(error.message);
+		}
+	}
+	getMyCollections = async ()=>{
+		try {
+			let myCollections = await Store.query('collections',{mine: true});
+			this.setState({myCollections});
 		} catch (error) {
 			this.showMessage(error.message);
 		}
 	}
 	componentDidMount(){
-		this.getCollections();
+		this.getPublicCollections();
+		this.getMyCollections();
 	}
 	render(){
 		this.preRender();
-		let {collections} = this.state;
+		let {publicCollections, myCollections} = this.state;
 
 		return(
 			<div className='Home'>
-				{collections.map(collection=>(
+				<div className="margy padded-left"><h3 className="light marginless">Public Flings</h3></div>
+				{publicCollections.map(collection=>(
+					<CollectionListItem collection={collection} key={collection.id}/>
+				))}
+				<Divider/>
+				<div className="margy padded-left"><h3 className="light marginless">Your Flings</h3></div>
+				{myCollections.map(collection=>(
 					<CollectionListItem collection={collection} key={collection.id}/>
 				))}
 				<Link to="/add">
