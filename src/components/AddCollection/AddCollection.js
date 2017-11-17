@@ -53,6 +53,7 @@ class EditItem extends React.Component{
 class AddCollection extends React.Component{
 	state = {
 		collectionName: '',
+		collectionImageLocation: null,
 		items: [],
 	}
 	addItem = ()=>{
@@ -75,6 +76,9 @@ class AddCollection extends React.Component{
 	onNameChange = (e)=>{
 		e.preventDefault();
 		this.setState({collectionName:e.target.value});
+	}
+	onCollectionImageChange = (location)=>{
+		this.setState({collectionImageLocation:location});
 	}
 	componentDidMount(){
 		this.addItem();
@@ -102,9 +106,11 @@ class AddCollection extends React.Component{
 		return false;
 	}
 	save = ()=>{
-		let {collectionName, items} = Object.assign({},this.state);
+		let {collectionName, collectionImageLocation, items} = Object.assign({},this.state);
 		Store.post('collections',{name: collectionName}).then(collection=>{
-			console.log(collection);
+			if(collectionImageLocation){
+				Store.post(`collections/${collection.id}/images`,{tmp_url: collectionImageLocation});
+			}
 			let promises = items.map(item=>{
 				if(!(item.name && item.price)){
 					return new Promise((resolve,reject)=>{
@@ -115,7 +121,6 @@ class AddCollection extends React.Component{
 					itemObj.amount = item.amount;
 				}
 				return Store.post(`collections/${collection.id}/items`,itemObj).then(itemResult=>{
-					console.log(itemResult);
 					if(item.imgLocation){
 						let image = {
 							tmp_url: item.imgLocation,
@@ -129,7 +134,7 @@ class AddCollection extends React.Component{
 				});
 			});
 			Promise.all(promises).then(()=>{
-				this.props.history.push(`/collections/${collection.id}`);
+				this.props.history.push(`/`);
 				this.props.history.goForward();
 			});
 		});
@@ -140,6 +145,7 @@ class AddCollection extends React.Component{
 		return(
 			<div className='AddCollection'>
 				<Paper className="margy padded">
+					<ImageUpload autoUpload={true} onUpload={this.onCollectionImageChange}/>
 					<TextField
 					floatingLabelText="Collection Name"
 					value={collectionName}

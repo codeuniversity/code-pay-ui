@@ -1,0 +1,6 @@
+.ImageUpload .image-container{
+    max-width: 145px;
+}
+.ImageUpload .image-container img{
+    width: 100%;
+}
