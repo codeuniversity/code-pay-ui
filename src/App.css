@@ -19,9 +19,15 @@ a{
 .padded{
   padding: 10px;
 }
+.padded-left{
+  padding-left: 10px;
+}
 .left{
   float: left;
 }
 .right{
   float: right;
+}
+.light{
+  font-weight: 200;
 }

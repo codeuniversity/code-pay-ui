@@ -26,8 +26,8 @@ class TransactionListItem extends React.Component{
 				</div>
 				<div className="TransactionListItem-actions">
 					{transaction.status === "outstanding"? (
-					balance >= transaction.cost ?
-					<RaisedButton label="pay" disabled={balance < transaction.cost} onClick={this.onPay}/> : '') :
+					Number(balance) >= Number(transaction.cost) ?
+					<RaisedButton label="pay" disabled={Number(balance) < Number(transaction.cost)} onClick={this.onPay}/> : '') :
 					<div className="paid-at">
 						<div className="label">Paid</div>
 						<div>{new Date(transaction.created_at).toLocaleString()}</div>
@@ -62,16 +62,15 @@ class ProfileScreen extends BaseComponent{
 		this.getProfile();
 		this.getTransactions();
 	}
-	onPaid = ()=>{
-		this.showMessage('Thank you for actually paying :)');
+	onPaid = (message = 'Thank you for actually paying :)')=>{
+		this.showMessage(message);
 		this.getProfile();
 		this.getTransactions();
 	}
 	payWithBalanceWith = async (transaction_id)=>{
-		console.log('wfwef')
 		try {
 			await Store.post(`transactions/${transaction_id}/pay`,{})
-			this.onPaid();
+			this.onPaid('Fling! Fling! Fling! Fling! Fling! Fling! Fling!');
 		} catch (error) {
 			if(error.response){
 				let message = await error.response.json();
