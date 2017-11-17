@@ -101,18 +101,29 @@ class CollectionScreen extends BaseComponent{
 			}
 		}
 	}
-	makeTransactions = ()=>{
+	makeTransactions = async ()=>{
 		let transactionArr = this.getTransactionArr();
 		this.setState({buying:true});
-		let promises = transactionArr.map(t=>{
-			let transaction = {item_id: t.id, amount: t.amount};
-			return Store.post('transactions',transaction);
-		});
-		Promise.all(promises).then(()=>{
-			this.setState({buying:false});
-			this.props.history.push("/profile");
-			this.props.history.goForward();
-		});
+		try {
+			let promises = transactionArr.filter(t=>t.amount>0).map(t=>{
+				let transaction = {item_id: t.id, amount: t.amount};
+				return Store.post('transactions',transaction);
+			});
+		await Promise.all(promises);
+		this.setState({buying:false});
+		this.props.history.push("/profile");
+		this.props.history.goForward();
+		} catch (error) {
+			if(error.response){
+				let message = await error.response.json();
+				Object.keys(message).forEach(key=>{
+					this.showMessage(`${key}: ${message[key]}`);
+				})
+			}else{
+				this.showMessage(error.message);
+			}
+		}
+
 	}
 	render(){
 		this.preRender();

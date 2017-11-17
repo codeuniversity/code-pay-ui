@@ -22,7 +22,8 @@ class Item extends React.Component{
 				{this.props.children}
 				<div className='Item-body'>
 					<h2 className='marginless Item-name'>{name}</h2>
-					<h5 className='marginless Item-description'>{utils.moneyFormat(price)} {amount_left ? `${amount_left} left` : ''}</h5>
+					<h5 className='marginless Item-description'>
+					{utils.moneyFormat(price)} {amount_left || amount_left === 0 ? `${amount_left} left` : ''}</h5>
 				</div>
 			</Paper>
 		)
