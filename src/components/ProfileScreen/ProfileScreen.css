@@ -4,11 +4,8 @@
     margin: 10px;
     padding: 10px;
 }
-.outstanding .TransactionListItem-name .date{
-    font-size: 10px;
-    color: #e6e6e6;
-}
-.done .TransactionListItem-name .date{
+
+.TransactionListItem-name .date{
     font-size: 10px;
     color: #757575;
 }
@@ -30,8 +27,7 @@
     overflow: auto;
 }
 .TransactionListItem.outstanding{
-    background-color: #f44961 !important;
-    color: white !important;
+    color: red !important;
 }
 .TransactionListItem-name{
     float: left;

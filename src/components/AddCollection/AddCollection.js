@@ -6,6 +6,7 @@ import ImageUpload from '../../ImageUpload';
 import RaisedButton from 'material-ui/RaisedButton';
 import Store from '../../services/Store';
 import {withRouter} from 'react-router-dom';
+import { Divider } from 'material-ui';
 
 class EditItem extends React.Component{
 	onChange = (e)=>{
@@ -22,8 +23,9 @@ class EditItem extends React.Component{
 			width: '50%',
 		}
 		return(
-			<Paper className="margy padded EditItem">
-				<ImageUpload autoUpload={true} onUpload={this.onImageLocationUpdate}/>
+			<div className="margy padded EditItem">
+				<Divider/>
+				<ImageUpload className="margy" autoUpload={true} onUpload={this.onImageLocationUpdate}/>
 				<TextField
 				floatingLabelText="Item Name"
 				value={item.name}
@@ -46,7 +48,7 @@ class EditItem extends React.Component{
 				name='amount'
 				onChange={this.onChange}
 				style={numberInputStyle}/>
-			</Paper>
+			</div>
 		)
 	}
 }
@@ -144,7 +146,7 @@ class AddCollection extends React.Component{
 		let {collectionName, items} = this.state;
 		return(
 			<div className='AddCollection'>
-				<Paper className="margy padded">
+				<div className="margy padded">
 					<ImageUpload autoUpload={true} onUpload={this.onCollectionImageChange}/>
 					<TextField
 					floatingLabelText="Collection Name"
@@ -152,7 +154,7 @@ class AddCollection extends React.Component{
 					autoFocus={true}
 					onChange={this.onNameChange}
 					fullWidth={true}/>
-				</Paper>
+				</div>
 				{items.map((item, index)=>(
 					<EditItem item={item} index={index} onChange={this.onItemChange}/>
 				))}

@@ -42,9 +42,9 @@ class ImageUpload extends React.Component{
       });
   }
 render(){
-
-      return (
-    <div className="ImageUpload">
+    let {className} = this.props;
+    return (
+    <div className={`ImageUpload ${className || ''}`}>
       <div className="image-container">
       { this.state.imgSrc ? <img src={this.state.imgSrc} alt="" className="image-preview"/> : <div></div>}
 

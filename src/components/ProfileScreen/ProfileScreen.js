@@ -15,7 +15,7 @@ class TransactionListItem extends React.Component{
 	render(){
 		let {className, transaction, balance} = this.props;
 		return (
-			<Paper className={`TransactionListItem ${className || ''} ${transaction.status}`}>
+			<div className={`TransactionListItem ${className || ''} ${transaction.status}`}>
 				<div className="TransactionListItem-name">
 					<span className="TransactionListItem-amount">{transaction.amount} </span>
 					<span>{transaction.item.name} </span>
@@ -33,7 +33,7 @@ class TransactionListItem extends React.Component{
 						<div>{new Date(transaction.created_at).toLocaleString()}</div>
 					</div>}
 				</div>
-			</Paper>
+			</div>
 		)
 	}
 }
@@ -90,19 +90,20 @@ class ProfileScreen extends BaseComponent{
 		}
 		return(
 			<div className='ProfileScreen'>
-			<Paper className="debt-container" style={{clear:"both",overflow:"auto"}}>
+				<div className="debt-container" style={{clear:"both",overflow:"auto"}}>
 					<div className="left">
 						<span>You owe {utils.moneyFormat(profile.dept)}</span>
 					</div>
 					<div className="right">
 						<PaypalButton onPaid={this.onPaid}/>
 					</div>
-				</Paper>
+				</div>
 				<Divider/>
 				{Number(profile.balance) ?
-				<Paper className="balance-container">
+				<div className="balance-container">
 					You have {utils.moneyFormat(profile.balance)} available
-				</Paper>: ''}
+				</div>: ''}
+				{Number(profile.balance) ? <Divider/> : ''}
 				{transactions.map(transaction=>(
 					<TransactionListItem
 					key={transaction.id}

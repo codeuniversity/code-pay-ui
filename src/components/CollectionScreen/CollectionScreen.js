@@ -1,12 +1,14 @@
 import React from 'react';
 import './CollectionScreen.css';
 import Store from '../../services/Store';
-import Item from '../Item/Item';
+// import Item from '../Item/Item';
 import AmountSelector from '../AmountSelector/AmountSelector';
 import utils from '../../utils';
 import Paper from 'material-ui/Paper';
 import BaseComponent from '../BaseComponent/BaseComponent'
 import { GridList, GridTile } from 'material-ui/GridList';
+import { RaisedButton } from 'material-ui';
+import Divider from 'material-ui/Divider';
 
 class ItemGridTile extends React.Component{
 	render(){
@@ -17,16 +19,20 @@ class ItemGridTile extends React.Component{
 		}
 		let tileStyle = {
 			background: utils.getColorByIndex(index),
+			width: '100%',
+			height: '100%',
 		};
 		return(
-			<GridTile
-			title={name}
-			titleStyle={titleStyle}
-			style={tileStyle}
-			subtitle={<span>{utils.moneyFormat(price)} {amount_left || amount_left === 0 ? `${amount_left} left` : ''}</span>}>
-			<img src={image ? image.small : ''} alt=''/>
-			<AmountSelector id={id} onChange={onAmountChange} amount={amount || 0}/>
-			</GridTile>
+			<div style={{width: '100%',height: '100%', position:'relative'}}>
+				<GridTile
+				title={name}
+				titleStyle={titleStyle}
+				style={tileStyle}
+				subtitle={<span>{utils.moneyFormat(price)} {amount_left || amount_left === 0 ? `${amount_left} left` : ''}</span>}>
+				<img src={image ? image.small : ''} alt=''/>
+				</GridTile>
+				<AmountSelector id={id} onChange={onAmountChange} amount={amount || 0}/>
+			</div>
 		)
 	}
 }
@@ -40,10 +46,13 @@ render(){
 		)
 	}
 	return (
-		<Paper className="PriceScreen">
-			<span className="money-total">{utils.moneyFormat(price)} total</span>
-			{this.props.children}
-		</Paper>
+		<div className="PriceScreen">
+			<Divider/>
+			<div className="margy">
+				<span className="money-total">{utils.moneyFormat(price)} total</span>
+				{this.props.children}
+			</div>
+		</div>
 	)
 }
 }
@@ -171,7 +180,12 @@ class CollectionScreen extends BaseComponent{
 				</div>
 				<div className='CollectionScreen-price'>
 					<PriceScreen price={totalPrice}>
-						<div className="Buy-Button" onClick={this.makeTransactions} disabled={buying}>Buy</div>
+						<RaisedButton
+						onClick={this.makeTransactions}
+						disabled={buying}
+						label='Buy'
+						style={{float:'right'}}
+						primary={true}/>
 					</PriceScreen>
 				</div>
 			{this.snackBar()}
