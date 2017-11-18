@@ -1,11 +1,11 @@
 .Navigation{
 }
 .main-body{
-    margin-top: 55px;
+    margin-top: 70px;
 }
 .logout{
-    background-color: white;
-    color: #f44961;
+    /* background-color: white; */
+    color: white;
     padding: 10px;
     float: right;
     cursor: pointer;
@@ -17,6 +17,13 @@
     font-size: 30px;
     font-weight: 200;
     margin: 0 10px;
+}
+.active-link{
+    border-bottom: 2px solid white;
+}
+.nav-icon{
+    margin-top: 5px;
+    max-height: 30px;
 }
 .app-header {
     background-color: #f44961;
