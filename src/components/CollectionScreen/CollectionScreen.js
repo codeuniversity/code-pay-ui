@@ -6,6 +6,30 @@ import AmountSelector from '../AmountSelector/AmountSelector';
 import utils from '../../utils';
 import Paper from 'material-ui/Paper';
 import BaseComponent from '../BaseComponent/BaseComponent'
+import { GridList, GridTile } from 'material-ui/GridList';
+
+class ItemGridTile extends React.Component{
+	render(){
+		let {onAmountChange, item, amount, index} = this.props;
+		let {image, name, price, amount_left, id} = item;
+		let titleStyle = {
+			color: '#e0fbff',
+		}
+		let tileStyle = {
+			background: utils.getColorByIndex(index),
+		};
+		return(
+			<GridTile
+			title={name}
+			titleStyle={titleStyle}
+			style={tileStyle}
+			subtitle={<span>{utils.moneyFormat(price)} {amount_left || amount_left === 0 ? `${amount_left} left` : ''}</span>}>
+			<img src={image ? image.small : ''} alt=''/>
+			<AmountSelector id={id} onChange={onAmountChange} amount={amount || 0}/>
+			</GridTile>
+		)
+	}
+}
 class PriceScreen extends BaseComponent{
 render(){
 	let price = this.props.price;
@@ -16,7 +40,7 @@ render(){
 		)
 	}
 	return (
-		<Paper className="PriceScreen margy">
+		<Paper className="PriceScreen">
 			<span className="money-total">{utils.moneyFormat(price)} total</span>
 			{this.props.children}
 		</Paper>
@@ -134,11 +158,16 @@ class CollectionScreen extends BaseComponent{
 				<div className='CollectionScreen-title'></div>
 				<div className='CollectionScreen-images'></div>
 				<div className='CollectionScreen-items'>
-					{items.map(item=>(
-						<Item item={item} key={item.id}>
-							<AmountSelector id={item.id} onChange={this.onAmountChange} amount={transactions[item.id] || 0}/>
-						</Item>
-					))}
+					<GridList>
+						{items.map((item, index)=>(
+							<ItemGridTile
+							index={index}
+							item={item}
+							key={item.id}
+							onAmountChange={this.onAmountChange}
+							amount={transactions[item.id]}/>
+						))}
+					</GridList>
 				</div>
 				<div className='CollectionScreen-price'>
 					<PriceScreen price={totalPrice}>

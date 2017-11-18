@@ -1,8 +1,9 @@
 .CollectionScreen{
 }
 .PriceScreen{
+    margin-top: 5px;
     padding: 10px;
-    background-color: green !important;
+    background-color: #494cde !important;
     color: white !important;
     font-size: 25px;
     font-weight: 200;
@@ -13,7 +14,7 @@
 }
 .Buy-Button{
     background-color: white;
-    color: green;
+    color: #494cde;
     float: right;
     padding: 5px;
     cursor: pointer;

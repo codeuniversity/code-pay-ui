@@ -8,20 +8,35 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import BaseComponent from '../BaseComponent/BaseComponent'
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
-class CollectionListItem extends React.Component{
+import {GridList, GridTile} from 'material-ui/GridList';
+import utils from '../../utils';
+class CollectionGridListItem extends React.Component{
+
 	render(){
-		let {collection} = this.props;
+		let {collection, index} = this.props;
+		let image = collection.main_image
+
+		let titleStyle = {
+			color: '#e0fbff',
+		}
+		let tileStyle = {
+			background: utils.getColorByIndex(index),
+		};
+
 		return (
 			<Link to={`/collections/${collection.id}`}>
-				<Paper className='CollectionListItem margy padded' style={{overflow:'auto', minHeight:72}}>
-				{collection.main_image ? <img src={collection.main_image.thumb} className="Collection-img" alt=''/> : ''}
-				<h2 className="light Collection-name marginless">{collection.name}</h2>
-				</Paper>
+				<GridTile
+				title={collection.name}
+				titleStyle={titleStyle}
+				style={tileStyle}
+				titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+				>
+				<img src={image ? image.small : ''} alt='' />
+				</GridTile>
 			</Link>
 		)
 	}
 }
-
 class Home extends BaseComponent{
 	state = Object.assign(this.state,{
 		publicCollections: [],
@@ -54,14 +69,18 @@ class Home extends BaseComponent{
 		return(
 			<div className='Home'>
 				<div className="margy padded-left"><h3 className="light marginless">Public Flings</h3></div>
-				{publicCollections.map(collection=>(
-					<CollectionListItem collection={collection} key={collection.id}/>
-				))}
+				<GridList>
+					{publicCollections.map((collection, index)=>(
+						<CollectionGridListItem index={index} collection={collection} key={collection.id}/>
+					))}
+				</GridList>
 				<Divider/>
 				<div className="margy padded-left"><h3 className="light marginless">Your Flings</h3></div>
-				{myCollections.map(collection=>(
-					<CollectionListItem collection={collection} key={collection.id}/>
-				))}
+				<GridList>
+					{myCollections.map((collection, index)=>(
+						<CollectionGridListItem index={index} collection={collection} key={collection.id}/>
+					))}
+				</GridList>
 				<Link to="/add">
 					<FloatingActionButton style={{position:'fixed', bottom:20,right:20}}>
 						<ContentAdd/>
