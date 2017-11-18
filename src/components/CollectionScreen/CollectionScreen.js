@@ -143,7 +143,7 @@ class CollectionScreen extends BaseComponent{
 				return Store.post('transactions',transaction);
 			});
 		await Promise.all(promises);
-		this.setState({buying:false});
+
 		this.props.history.push("/profile");
 		this.props.history.goForward();
 		} catch (error) {
@@ -156,15 +156,15 @@ class CollectionScreen extends BaseComponent{
 				this.showMessage(error.message);
 			}
 		}
-
+		this.setState({buying:false});
 	}
 	render(){
 		this.preRender();
-		let {transactions, items, buying} = this.state;
+		let {collection, transactions, items, buying} = this.state;
 		let totalPrice = this.getPrice();
 		return(
 			<div className='CollectionScreen'>
-				<div className='CollectionScreen-title'></div>
+				<div className='CollectionScreen-title'>{collection ? <h2 className=" margy light">{collection.name}</h2> : ''}</div>
 				<div className='CollectionScreen-images'></div>
 				<div className='CollectionScreen-items'>
 					<GridList>
