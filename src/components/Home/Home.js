@@ -7,19 +7,16 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import BaseComponent from '../BaseComponent/BaseComponent'
 import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
 class CollectionListItem extends React.Component{
 	render(){
 		let {collection} = this.props;
 		return (
 			<Link to={`/collections/${collection.id}`}>
-				<Card className='CollectionListItem'>
-					<CardTitle title={collection.name} />
-						{/* <CardMedia>
-							{collection.images.map(image=>(
-								<img src={image.large} alt="" />
-							))}
-						</CardMedia> */}
-				</Card>
+				<Paper className='CollectionListItem margy padded' style={{overflow:'auto', minHeight:72}}>
+				{collection.main_image ? <img src={collection.main_image.thumb} className="Collection-img" alt=''/> : ''}
+				<h2 className="light Collection-name marginless">{collection.name}</h2>
+				</Paper>
 			</Link>
 		)
 	}
