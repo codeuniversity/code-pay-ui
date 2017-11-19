@@ -60,6 +60,10 @@ class Home extends BaseComponent{
 		this.getPublicCollections();
 		this.getMyCollections();
 	}
+	colAmount = ()=>{
+		let width = window.innerWidth < 800 ? window.innerWidth : 800;
+		return Math.floor(width/180);
+	}
 	render(){
 		this.preRender();
 		let {publicCollections, myCollections} = this.state;
@@ -67,20 +71,20 @@ class Home extends BaseComponent{
 		return(
 			<div className='Home'>
 				<div className="margy padded-left"><h3 className="light marginless">Public Flings</h3></div>
-				<GridList padding={2}>
+				<GridList padding={2} cols={this.colAmount()}>
 					{publicCollections.map((collection, index)=>(
 						<CollectionGridListItem index={index} collection={collection} key={collection.id}/>
 					))}
 				</GridList>
 				<Divider style={{marginTop:10}}/>
 				<div className="margy padded-left"><h3 className="light marginless">Your Flings</h3></div>
-				<GridList padding={2}>
+				<GridList padding={2} cols={this.colAmount()}>
 					{myCollections.map((collection, index)=>(
 						<CollectionGridListItem index={index} collection={collection} key={collection.id}/>
 					))}
 				</GridList>
 				<Link to="/add">
-					<FloatingActionButton secondary={false} backgroundColor={"#706bff"} style={{position:'fixed', bottom:20,right:20}}>
+					<FloatingActionButton secondary={true} backgroundColor={"#706bff"} style={{position:'fixed', bottom:20,right:20}}>
 						<ContentAdd/>
 					</FloatingActionButton>
 				</Link>
