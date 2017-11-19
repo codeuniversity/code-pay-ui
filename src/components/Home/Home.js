@@ -84,7 +84,7 @@ class Home extends BaseComponent{
 					))}
 				</GridList>
 				<Link to="/add">
-					<FloatingActionButton secondary={true} backgroundColor={"#706bff"} style={{position:'fixed', bottom:20,right:20}}>
+					<FloatingActionButton secondary={true} style={{position:'fixed', bottom:20,right:20}}>
 						<ContentAdd/>
 					</FloatingActionButton>
 				</Link>
