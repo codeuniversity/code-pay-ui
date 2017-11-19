@@ -1,13 +1,11 @@
 import React from 'react';
 import './Home.css';
 import Store from '../../services/Store';
-import {Card, CardTitle} from 'material-ui/Card';
 import { Link } from 'react-router-dom';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import BaseComponent from '../BaseComponent/BaseComponent'
 import Divider from 'material-ui/Divider';
-import Paper from 'material-ui/Paper';
 import {GridList, GridTile} from 'material-ui/GridList';
 import utils from '../../utils';
 class CollectionGridListItem extends React.Component{

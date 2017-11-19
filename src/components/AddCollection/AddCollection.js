@@ -1,7 +1,6 @@
 import React from 'react';
 import './AddCollection.css';
 import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
 import ImageUpload from '../../ImageUpload';
 import RaisedButton from 'material-ui/RaisedButton';
 import Store from '../../services/Store';

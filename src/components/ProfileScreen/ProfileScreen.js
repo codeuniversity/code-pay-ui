@@ -5,7 +5,6 @@ import PaypalButton from '../PaypalButton/PaypalButton'
 import utils from '../../utils';
 import BaseComponent from '../BaseComponent/BaseComponent'
 import Divider from 'material-ui/Divider';
-import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 class TransactionListItem extends React.Component{
 	onPay = ()=>{

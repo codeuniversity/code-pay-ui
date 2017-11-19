@@ -1,10 +1,8 @@
 import React from 'react';
 import './CollectionScreen.css';
 import Store from '../../services/Store';
-// import Item from '../Item/Item';
 import AmountSelector from '../AmountSelector/AmountSelector';
 import utils from '../../utils';
-import Paper from 'material-ui/Paper';
 import BaseComponent from '../BaseComponent/BaseComponent'
 import { GridList, GridTile } from 'material-ui/GridList';
 import { RaisedButton } from 'material-ui';
