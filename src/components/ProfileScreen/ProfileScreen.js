@@ -90,6 +90,7 @@ class ProfileScreen extends BaseComponent{
 		let hasBalance = Number(profile.balance);
 		let hasReceivingMoney = Number(profile.receiving_money)
 		let both = hasBalance && hasReceivingMoney;
+		let either = hasBalance || hasReceivingMoney;
 		return(
 			<div className='ProfileScreen'>
 				<div className="debt-container" style={{clear:"both",overflow:"auto"}}>
@@ -101,14 +102,14 @@ class ProfileScreen extends BaseComponent{
 					</div>
 				</div>
 				<Divider/>
-				{hasBalance || hasReceivingMoney ?
+				{either ?
 				<div className="balance-container">
 					{ hasBalance ? `You have ${utils.moneyFormat(profile.balance)} available` : ''}
 					{both ? ` and people owe you ${utils.moneyFormat(profile.receiving_money)}` :
 					hasReceivingMoney ? `People owe you ${utils.moneyFormat(profile.receiving_money)}` : ''}
 
 				</div>: ''}
-				{Number(profile.balance) ? <Divider/> : ''}
+				{either ? <Divider/> : ''}
 				{transactions.map(transaction=>(
 					<TransactionListItem
 					key={transaction.id}
