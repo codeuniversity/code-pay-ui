@@ -165,7 +165,7 @@ class CollectionScreen extends BaseComponent{
 				<div className='CollectionScreen-title'>{collection ? <h2 className=" margy light">{collection.name}</h2> : ''}</div>
 				<div className='CollectionScreen-images'></div>
 				<div className='CollectionScreen-items'>
-					<GridList>
+					<GridList padding={2} >
 						{items.map((item, index)=>(
 							<ItemGridTile
 							index={index}

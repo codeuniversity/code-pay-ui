@@ -67,14 +67,14 @@ class Home extends BaseComponent{
 		return(
 			<div className='Home'>
 				<div className="margy padded-left"><h3 className="light marginless">Public Flings</h3></div>
-				<GridList>
+				<GridList padding={2}>
 					{publicCollections.map((collection, index)=>(
 						<CollectionGridListItem index={index} collection={collection} key={collection.id}/>
 					))}
 				</GridList>
-				<Divider/>
+				<Divider style={{marginTop:10}}/>
 				<div className="margy padded-left"><h3 className="light marginless">Your Flings</h3></div>
-				<GridList>
+				<GridList padding={2}>
 					{myCollections.map((collection, index)=>(
 						<CollectionGridListItem index={index} collection={collection} key={collection.id}/>
 					))}
