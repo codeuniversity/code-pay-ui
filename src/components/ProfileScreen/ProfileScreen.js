@@ -87,6 +87,9 @@ class ProfileScreen extends BaseComponent{
 		if(!profile){
 			return (<div>{this.snackBar()}</div>)
 		}
+		let hasBalance = Number(profile.balance);
+		let hasReceivingMoney = Number(profile.receiving_money)
+		let both = hasBalance && hasReceivingMoney;
 		return(
 			<div className='ProfileScreen'>
 				<div className="debt-container" style={{clear:"both",overflow:"auto"}}>
@@ -98,9 +101,12 @@ class ProfileScreen extends BaseComponent{
 					</div>
 				</div>
 				<Divider/>
-				{Number(profile.balance) ?
+				{hasBalance || hasReceivingMoney ?
 				<div className="balance-container">
-					You have {utils.moneyFormat(profile.balance)} available
+					{ hasBalance ? `You have ${utils.moneyFormat(profile.balance)} available` : ''}
+					{both ? ` and people owe you ${utils.moneyFormat(profile.receiving_money)}` :
+					hasReceivingMoney ? `People owe you ${utils.moneyFormat(profile.receiving_money)}` : ''}
+
 				</div>: ''}
 				{Number(profile.balance) ? <Divider/> : ''}
 				{transactions.map(transaction=>(
