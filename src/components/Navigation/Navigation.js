@@ -32,8 +32,11 @@ class Navigation extends React.Component{
             </nav>
           </div>
 				</div>
+
 				<div className='main-body'>
+          <div className='container'>
 					{this.props.children}
+          </div>
 				</div>
 			</div>
 		)
