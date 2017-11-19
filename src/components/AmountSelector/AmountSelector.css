@@ -1,4 +1,9 @@
 .AmountSelector{
+    /* display: inline-block; */
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    z-index: 500;
     float: right;
     height: 30px;
     line-height: 10px;
@@ -7,16 +12,22 @@
 }
 .AmountSelector-amount{
     position: relative;
-    bottom: 12px;
-    font-size: 23px;
+    bottom: 10px;
+    font-size: 30px;
     font-weight: 200;
+    color: white;
+    text-shadow: 1px 1px 5px black;
 }
 .AmountSelector .add , .AmountSelector .clear{
     cursor: pointer;
     height: 40px !important;
     width: 40px !important;
-    stroke: white;
+    /* stroke: white; */
+    filter: drop-shadow( 1px 1px 3px #000 );
 }
 .AmountSelector svg path{
-    border: 1px solid black;
+    cursor: pointer;
+    fill: white;
+    stroke: rgba(255, 255, 255, 0);
+
 }

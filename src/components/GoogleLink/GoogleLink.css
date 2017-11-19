@@ -9,8 +9,7 @@
 .GoogleLink-container{
     position: relative;
     width: 100vw;
-    height: 100vh;
-    background-color: #ea4d5f;     
+    height: 100vh;    
     background: linear-gradient(135deg, #46a6fd,#9b41fe); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ 
     /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#46a6fd', endColorstr='#9b41fe',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */   
     }

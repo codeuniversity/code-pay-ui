@@ -1,11 +1,11 @@
 import React from 'react';
 import './AddCollection.css';
 import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
 import ImageUpload from '../../ImageUpload';
 import RaisedButton from 'material-ui/RaisedButton';
 import Store from '../../services/Store';
 import {withRouter} from 'react-router-dom';
+import { Divider } from 'material-ui';
 
 class EditItem extends React.Component{
 	onChange = (e)=>{
@@ -22,8 +22,9 @@ class EditItem extends React.Component{
 			width: '50%',
 		}
 		return(
-			<Paper className="margy padded EditItem">
-				<ImageUpload autoUpload={true} onUpload={this.onImageLocationUpdate}/>
+			<div className="margy padded EditItem">
+				<Divider/>
+				<ImageUpload className="margy" autoUpload={true} onUpload={this.onImageLocationUpdate}/>
 				<TextField
 				floatingLabelText="Item Name"
 				value={item.name}
@@ -46,13 +47,14 @@ class EditItem extends React.Component{
 				name='amount'
 				onChange={this.onChange}
 				style={numberInputStyle}/>
-			</Paper>
+			</div>
 		)
 	}
 }
 class AddCollection extends React.Component{
 	state = {
 		collectionName: '',
+		collectionImageLocation: null,
 		items: [],
 	}
 	addItem = ()=>{
@@ -75,6 +77,9 @@ class AddCollection extends React.Component{
 	onNameChange = (e)=>{
 		e.preventDefault();
 		this.setState({collectionName:e.target.value});
+	}
+	onCollectionImageChange = (location)=>{
+		this.setState({collectionImageLocation:location});
 	}
 	componentDidMount(){
 		this.addItem();
@@ -102,9 +107,11 @@ class AddCollection extends React.Component{
 		return false;
 	}
 	save = ()=>{
-		let {collectionName, items} = Object.assign({},this.state);
+		let {collectionName, collectionImageLocation, items} = Object.assign({},this.state);
 		Store.post('collections',{name: collectionName}).then(collection=>{
-			console.log(collection);
+			if(collectionImageLocation){
+				Store.post(`collections/${collection.id}/images`,{tmp_url: collectionImageLocation});
+			}
 			let promises = items.map(item=>{
 				if(!(item.name && item.price)){
 					return new Promise((resolve,reject)=>{
@@ -115,7 +122,6 @@ class AddCollection extends React.Component{
 					itemObj.amount = item.amount;
 				}
 				return Store.post(`collections/${collection.id}/items`,itemObj).then(itemResult=>{
-					console.log(itemResult);
 					if(item.imgLocation){
 						let image = {
 							tmp_url: item.imgLocation,
@@ -129,7 +135,7 @@ class AddCollection extends React.Component{
 				});
 			});
 			Promise.all(promises).then(()=>{
-				this.props.history.push(`/collections/${collection.id}`);
+				this.props.history.push(`/`);
 				this.props.history.goForward();
 			});
 		});
@@ -139,14 +145,15 @@ class AddCollection extends React.Component{
 		let {collectionName, items} = this.state;
 		return(
 			<div className='AddCollection'>
-				<Paper className="margy padded">
+				<div className="margy padded">
+					<ImageUpload autoUpload={true} onUpload={this.onCollectionImageChange}/>
 					<TextField
 					floatingLabelText="Collection Name"
 					value={collectionName}
 					autoFocus={true}
 					onChange={this.onNameChange}
 					fullWidth={true}/>
-				</Paper>
+				</div>
 				{items.map((item, index)=>(
 					<EditItem item={item} index={index} onChange={this.onItemChange}/>
 				))}

@@ -1,32 +1,46 @@
 .Navigation{
 }
 .main-body{
-    margin-top: 55px;
+    margin-top: 70px;
 }
-.logout{
-    background-color: white;
-    color: #f44961;
-    padding: 10px;
-    float: right;
-    cursor: pointer;
-}
+
 .nav-link{
     float: left;
-    color: white;
     line-height: 40px;
-    font-size: 30px;
+    font-size: 16px;
     font-weight: 200;
     margin: 0 10px;
 }
+.active-link{
+    border-bottom: 2px solid #706bff;
+}
+.nav-icon{
+    margin-top: 5px;
+    max-height: 30px;
+    margin-left: 5vw;
+}
 .app-header {
-    background-color: #f44961;
-    padding: 2px;
+    background-color: #fff;
+    height: 50px;
+    padding-top: 8px;
     overflow: auto;
-    color: white;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    box-shadow: 0px 0px 10px 0px black;
+    box-shadow: 0px 0px 11px 2px #0808082b;
 }
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+
+}
+
+.header-nav {
+    float: right;
+}
+
+

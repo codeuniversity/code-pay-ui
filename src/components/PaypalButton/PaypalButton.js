@@ -31,7 +31,7 @@ class PaypalButton extends React.Component{
 			onAuthorize: this.onAuthorize,
 			onCancel: this.onCancel,
 			style: {
-				size: 'responsive',
+				size: 'small',
 				color: 'blue',
 				shape: 'rect',
 				label: 'pay'

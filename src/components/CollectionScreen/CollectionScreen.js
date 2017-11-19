@@ -1,11 +1,39 @@
 import React from 'react';
 import './CollectionScreen.css';
 import Store from '../../services/Store';
-import Item from '../Item/Item';
 import AmountSelector from '../AmountSelector/AmountSelector';
 import utils from '../../utils';
-import Paper from 'material-ui/Paper';
 import BaseComponent from '../BaseComponent/BaseComponent'
+import { GridList, GridTile } from 'material-ui/GridList';
+import { RaisedButton } from 'material-ui';
+import Divider from 'material-ui/Divider';
+
+class ItemGridTile extends React.Component{
+	render(){
+		let {onAmountChange, item, amount, index} = this.props;
+		let {image, name, price, amount_left, id} = item;
+		let titleStyle = {
+			color: '#e0fbff',
+		}
+		let tileStyle = {
+			background: utils.getColorByIndex(index),
+			width: '100%',
+			height: '100%',
+		};
+		return(
+			<div style={{width: '100%',height: '100%', position:'relative'}}>
+				<GridTile
+				title={name}
+				titleStyle={titleStyle}
+				style={tileStyle}
+				subtitle={<span>{utils.moneyFormat(price)} {amount_left || amount_left === 0 ? `${amount_left} left` : ''}</span>}>
+				<img src={image ? image.small : ''} alt=''/>
+				</GridTile>
+				<AmountSelector id={id} onChange={onAmountChange} amount={amount || 0}/>
+			</div>
+		)
+	}
+}
 class PriceScreen extends BaseComponent{
 render(){
 	let price = this.props.price;
@@ -16,10 +44,13 @@ render(){
 		)
 	}
 	return (
-		<Paper className="PriceScreen margy">
-			<span className="money-total">{utils.moneyFormat(price)} total</span>
-			{this.props.children}
-		</Paper>
+		<div className="PriceScreen">
+			<Divider/>
+			<div className="margy">
+				<span className="money-total">{utils.moneyFormat(price)} total</span>
+				{this.props.children}
+			</div>
+		</div>
 	)
 }
 }
@@ -101,37 +132,58 @@ class CollectionScreen extends BaseComponent{
 			}
 		}
 	}
-	makeTransactions = ()=>{
+	makeTransactions = async ()=>{
 		let transactionArr = this.getTransactionArr();
 		this.setState({buying:true});
-		let promises = transactionArr.map(t=>{
-			let transaction = {item_id: t.id, amount: t.amount};
-			return Store.post('transactions',transaction);
-		});
-		Promise.all(promises).then(()=>{
-			this.setState({buying:false});
-			this.props.history.push("/profile");
-			this.props.history.goForward();
-		});
+		try {
+			let promises = transactionArr.filter(t=>t.amount>0).map(t=>{
+				let transaction = {item_id: t.id, amount: t.amount};
+				return Store.post('transactions',transaction);
+			});
+		await Promise.all(promises);
+
+		this.props.history.push("/profile");
+		this.props.history.goForward();
+		} catch (error) {
+			if(error.response){
+				let message = await error.response.json();
+				Object.keys(message).forEach(key=>{
+					this.showMessage(`${key}: ${message[key]}`);
+				})
+			}else{
+				this.showMessage(error.message);
+			}
+		}
+		this.setState({buying:false});
 	}
 	render(){
 		this.preRender();
-		let {transactions, items, buying} = this.state;
+		let {collection, transactions, items, buying} = this.state;
 		let totalPrice = this.getPrice();
 		return(
 			<div className='CollectionScreen'>
-				<div className='CollectionScreen-title'></div>
+				<div className='CollectionScreen-title'>{collection ? <h2 className=" margy light">{collection.name}</h2> : ''}</div>
 				<div className='CollectionScreen-images'></div>
 				<div className='CollectionScreen-items'>
-					{items.map(item=>(
-						<Item item={item} key={item.id}>
-							<AmountSelector id={item.id} onChange={this.onAmountChange} amount={transactions[item.id] || 0}/>
-						</Item>
-					))}
+					<GridList padding={2} >
+						{items.map((item, index)=>(
+							<ItemGridTile
+							index={index}
+							item={item}
+							key={item.id}
+							onAmountChange={this.onAmountChange}
+							amount={transactions[item.id]}/>
+						))}
+					</GridList>
 				</div>
 				<div className='CollectionScreen-price'>
 					<PriceScreen price={totalPrice}>
-						<div className="Buy-Button" onClick={this.makeTransactions} disabled={buying}>Buy</div>
+						<RaisedButton
+						onClick={this.makeTransactions}
+						disabled={buying}
+						label='Buy'
+						style={{float:'right'}}
+						primary={true}/>
 					</PriceScreen>
 				</div>
 			{this.snackBar()}

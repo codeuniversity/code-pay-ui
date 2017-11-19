@@ -1,55 +1,86 @@
 import React from 'react';
 import './Home.css';
 import Store from '../../services/Store';
-import {Card, CardTitle} from 'material-ui/Card';
 import { Link } from 'react-router-dom';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import BaseComponent from '../BaseComponent/BaseComponent'
-class CollectionListItem extends React.Component{
+import Divider from 'material-ui/Divider';
+import {GridList, GridTile} from 'material-ui/GridList';
+import utils from '../../utils';
+class CollectionGridListItem extends React.Component{
+
 	render(){
-		let {collection} = this.props;
+		let {collection, index} = this.props;
+		let image = collection.main_image
+
+		let titleStyle = {
+			color: '#e0fbff',
+		}
+		let tileStyle = {
+			background: utils.getColorByIndex(index),
+		};
+
 		return (
 			<Link to={`/collections/${collection.id}`}>
-				<Card className='CollectionListItem'>
-					<CardTitle title={collection.name} />
-						{/* <CardMedia>
-							{collection.images.map(image=>(
-								<img src={image.large} alt="" />
-							))}
-						</CardMedia> */}
-				</Card>
+				<GridTile
+				title={collection.name}
+				titleStyle={titleStyle}
+				style={tileStyle}
+				titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+				>
+				<img src={image ? image.small : ''} alt='' />
+				</GridTile>
 			</Link>
 		)
 	}
 }
-
 class Home extends BaseComponent{
 	state = Object.assign(this.state,{
-		collections:[],
+		publicCollections: [],
+		myCollections: []
 	})
-	getCollections = async ()=>{
+	getPublicCollections = async ()=>{
 		try {
-			let collections = await Store.get('collections');
-			this.setState({collections});
+			let publicCollections = await Store.get('collections');
+			this.setState({publicCollections});
+		} catch (error) {
+			this.showMessage(error.message);
+		}
+	}
+	getMyCollections = async ()=>{
+		try {
+			let myCollections = await Store.query('collections',{mine: true});
+			this.setState({myCollections});
 		} catch (error) {
 			this.showMessage(error.message);
 		}
 	}
 	componentDidMount(){
-		this.getCollections();
+		this.getPublicCollections();
+		this.getMyCollections();
 	}
 	render(){
 		this.preRender();
-		let {collections} = this.state;
+		let {publicCollections, myCollections} = this.state;
 
 		return(
 			<div className='Home'>
-				{collections.map(collection=>(
-					<CollectionListItem collection={collection} key={collection.id}/>
-				))}
+				<div className="margy padded-left"><h3 className="light marginless">Public Flings</h3></div>
+				<GridList padding={2}>
+					{publicCollections.map((collection, index)=>(
+						<CollectionGridListItem index={index} collection={collection} key={collection.id}/>
+					))}
+				</GridList>
+				<Divider style={{marginTop:10}}/>
+				<div className="margy padded-left"><h3 className="light marginless">Your Flings</h3></div>
+				<GridList padding={2}>
+					{myCollections.map((collection, index)=>(
+						<CollectionGridListItem index={index} collection={collection} key={collection.id}/>
+					))}
+				</GridList>
 				<Link to="/add">
-					<FloatingActionButton style={{position:'fixed', bottom:20,right:20}}>
+					<FloatingActionButton secondary={true} style={{position:'fixed', bottom:20,right:20}}>
 						<ContentAdd/>
 					</FloatingActionButton>
 				</Link>

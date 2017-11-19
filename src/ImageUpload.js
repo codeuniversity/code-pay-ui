@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageStore from './services/ImageStore';
+import './ImageUpload.css';
 import Store from './services/Store';
 class ImageUpload extends React.Component{
   state={
@@ -32,20 +33,19 @@ class ImageUpload extends React.Component{
   }
   uploadFile = (file)=>{
     this.setState({uploading:true,finishedUpload:false});
-    Store.query("signed_image_url",{},(response)=>{
+    Store.query("signed_image_url",{}).then((response)=>{
       ImageStore.uploadFile(response.presignedPost,file,(location)=>{
         this.props.onUpload(location);
         this.setState({uploading:false,finishedUpload:true});
-     });
-    },(failResponse)=>{
-      console.log(failResponse);
-    },true);
+      })}).catch(error=>{
+        console.log(error);
+      });
   }
 render(){
-
-      return (
-    <div>
-      <div className="imgage-container">
+    let {className} = this.props;
+    return (
+    <div className={`ImageUpload ${className || ''}`}>
+      <div className="image-container">
       { this.state.imgSrc ? <img src={this.state.imgSrc} alt="" className="image-preview"/> : <div></div>}
 
       </div>

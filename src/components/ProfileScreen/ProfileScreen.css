@@ -1,2 +1,37 @@
 .ProfileScreen{
 }
+.ProfileScreen .debt-container{
+    margin: 10px;
+    padding: 10px;
+}
+
+.TransactionListItem-name .date{
+    font-size: 10px;
+    color: #757575;
+}
+.done .TransactionListItem-actions .paid-at{
+    font-size: 10px;
+}
+.done .TransactionListItem-actions .label{
+    font-size: 20px;
+    text-align: center;
+    color: green;
+}
+.ProfileScreen .balance-container{
+    margin: 10px;
+    padding: 10px;
+}
+.TransactionListItem{
+    padding: 10px;
+    margin: 10px;
+    overflow: auto;
+}
+.TransactionListItem.outstanding{
+    color: red !important;
+}
+.TransactionListItem-name{
+    float: left;
+}
+.TransactionListItem-actions{
+    float: right;
+}

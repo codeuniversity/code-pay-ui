@@ -1,21 +1,14 @@
 .CollectionScreen{
 }
 .PriceScreen{
+    margin-top: 5px;
     padding: 10px;
-    background-color: green !important;
-    color: white !important;
+    /* background-color: #494cde !important; */
+    /* color: white !important; */
     font-size: 25px;
     font-weight: 200;
     overflow: auto;
 }
 .PriceScreen .money-total{
     line-height: 40px;
-}
-.Buy-Button{
-    background-color: white;
-    color: green;
-    float: right;
-    padding: 5px;
-    cursor: pointer;
-
 }

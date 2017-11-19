@@ -16,31 +16,18 @@ function get(url){
   .then(parseJSON);
 }
 
-function query(url,paramsObj,cb,fail,disableCache){
+function query(url,paramsObj){
   if(!isAuthenticated()){
     return "login"; //meaning a need to transition to Login
-  }
-  if(!disableCache){
-    StorageAdaptor.getResultFromCache(url,cb);
   }
   var headers = {
     accept: 'application/json',
   };
   var completeHeaders = constructHeadersForRequest(headers);
-  fetch(API_URL+url+constructQueryParams(paramsObj),{
+  return fetch(API_URL+url+constructQueryParams(paramsObj),{
     headers:completeHeaders
   }).then(checkStatus)
-    .then(parseJSON)
-    .then((answer)=>{
-      if(!answer.error){
-        if(!disableCache){
-        StorageAdaptor.cacheResult(url,answer);
-        }
-        cb(answer);
-      }else if (fail) {
-        fail(answer);
-      }
-    });
+    .then(parseJSON);
 }
 
 function post(url,obj,cb,fail){

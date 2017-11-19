@@ -3,3 +3,13 @@
 .CollectionListItem{
     margin: 10px;
 }
+.Collection-img{
+    float: left;
+    height: 100%;
+    width: auto;
+    max-width: 75px;
+    margin-right: 10px;
+}
+.Collection-name{
+    margin-top: 10px;
+}
