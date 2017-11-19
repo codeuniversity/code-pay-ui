@@ -156,6 +156,10 @@ class CollectionScreen extends BaseComponent{
 		}
 		this.setState({buying:false});
 	}
+	colAmount = ()=>{
+		let width = window.innerWidth < 800 ? window.innerWidth : 800;
+		return Math.floor(width/180);
+	}
 	render(){
 		this.preRender();
 		let {collection, transactions, items, buying} = this.state;
@@ -165,7 +169,7 @@ class CollectionScreen extends BaseComponent{
 				<div className='CollectionScreen-title'>{collection ? <h2 className=" margy light">{collection.name}</h2> : ''}</div>
 				<div className='CollectionScreen-images'></div>
 				<div className='CollectionScreen-items'>
-					<GridList padding={2} >
+					<GridList padding={2} cols={this.colAmount()}>
 						{items.map((item, index)=>(
 							<ItemGridTile
 							index={index}
