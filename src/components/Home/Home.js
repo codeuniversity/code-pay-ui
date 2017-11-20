@@ -94,3 +94,5 @@ class Home extends BaseComponent{
 	}
 }
 export default Home;
+
+
