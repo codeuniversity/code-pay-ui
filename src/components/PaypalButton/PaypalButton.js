@@ -26,7 +26,7 @@ class PaypalButton extends React.Component{
 	}
 	componentDidMount(){
 		PaypalCheckout.Button.render({
-			env: 'sandbox',
+			env: process.env.REACT_APP_PAYPAL_ENVIRONMENT || 'sandbox',
 			payment: this.payment,
 			onAuthorize: this.onAuthorize,
 			onCancel: this.onCancel,
