@@ -2,7 +2,6 @@ import React from 'react';
 import './Navigation.css';
 import Store from '../../services/Store';
 import {NavLink,withRouter} from 'react-router-dom';
-import ManyCoins from '../../assets/ManyCoins.svg';
 import Logo from '../../assets/logo.png';
 import Drawer from 'material-ui/Drawer';
 
@@ -25,9 +24,9 @@ class Navigation extends React.Component{
 
 
 	render(){
-		return( 
+		return(
 			<div className='Navigation'>
-      
+
         <Drawer
           docked={false}
           width={200}
@@ -46,8 +45,8 @@ class Navigation extends React.Component{
               <div className="menu-item">
               <NavLink to="/logout" exact={true} activeClassName="mobile-active-link" className="nav-link Profile">
                 <div onClick={this.onLogout}>Logout</div>
-              </NavLink> 
-              </div>   
+              </NavLink>
+              </div>
         </Drawer>
 
 				<div className='app-header'>
@@ -55,7 +54,7 @@ class Navigation extends React.Component{
           <div className= "container">
             <NavLink to="/" exact={true}  className="nav-link Home">
               <img className="nav-icon" src={Logo} alt=''/>
-            </NavLink>   
+            </NavLink>
   					<nav className="header-nav">
               <NavLink to="/" exact={true} activeClassName="active-link" className="nav-link Profile">
                 Home
@@ -65,7 +64,7 @@ class Navigation extends React.Component{
   					  </NavLink>
               <NavLink to="/logout" exact={true} activeClassName="active-link" className="nav-link Profile">
                 <div onClick={this.onLogout}>Logout</div>
-              </NavLink>		
+              </NavLink>
             </nav>
           </div>
 				</div>
