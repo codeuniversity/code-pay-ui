@@ -73,9 +73,11 @@ class Home extends BaseComponent{
 			noOwnCollectionMessage = (
 				<Paper style={{margin:10,padding:10, paddingBottom: 30}}>
 					You have no own Flings, create one:
-					<FloatingActionButton secondary={true} mini={true} style={{position:'relative', top: 10, left: 10}}>
-						<ContentAdd/>
-					</FloatingActionButton>
+					<Link to="/add">
+						<FloatingActionButton secondary={true} mini={true} style={{position:'relative', top: 10, left: 10}}>
+							<ContentAdd/>
+						</FloatingActionButton>
+					</Link>
 				</Paper>
 			)
 		}
