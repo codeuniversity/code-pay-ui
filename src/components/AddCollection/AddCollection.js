@@ -24,7 +24,7 @@ class EditItem extends React.Component{
 		return(
 			<div className="margy padded EditItem">
 				<Divider/>
-				<ImageUpload className="margy" autoUpload={true} onUpload={this.onImageLocationUpdate}/>
+
 				<TextField
 				floatingLabelText="Item Name"
 				value={item.name}
@@ -33,7 +33,7 @@ class EditItem extends React.Component{
 				fullWidth={true}/>
 
 				<TextField
-				floatingLabelText="Price"
+				floatingLabelText="Price of an Item"
 				value={item.price}
 				type="number"
 				name='price'
@@ -41,12 +41,14 @@ class EditItem extends React.Component{
 				style={numberInputStyle}/>
 
 				<TextField
-				floatingLabelText="Amount (optional)"
+				floatingLabelText="Amount of Items"
 				value={item.amount}
 				type="number"
 				name='amount'
 				onChange={this.onChange}
 				style={numberInputStyle}/>
+				<h4 className="light grey">Image</h4>
+				<ImageUpload className="margy" autoUpload={true} onUpload={this.onImageLocationUpdate}/>
 			</div>
 		)
 	}
@@ -146,13 +148,15 @@ class AddCollection extends React.Component{
 		return(
 			<div className='AddCollection'>
 				<div className="margy padded">
-					<ImageUpload autoUpload={true} onUpload={this.onCollectionImageChange}/>
+
 					<TextField
-					floatingLabelText="Collection Name"
+					floatingLabelText="Item Group Name"
 					value={collectionName}
 					autoFocus={true}
 					onChange={this.onNameChange}
 					fullWidth={true}/>
+					<h4 className="light grey">Image</h4>
+					<ImageUpload autoUpload={true} onUpload={this.onCollectionImageChange}/>
 				</div>
 				{items.map((item, index)=>(
 					<EditItem item={item} index={index} onChange={this.onItemChange}/>
