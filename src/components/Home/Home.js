@@ -8,6 +8,7 @@ import BaseComponent from '../BaseComponent/BaseComponent'
 import Divider from 'material-ui/Divider';
 import {GridList, GridTile} from 'material-ui/GridList';
 import utils from '../../utils';
+import Paper from 'material-ui/Paper';
 class CollectionGridListItem extends React.Component{
 
 	render(){
@@ -67,7 +68,17 @@ class Home extends BaseComponent{
 	render(){
 		this.preRender();
 		let {publicCollections, myCollections} = this.state;
-
+		let noOwnCollectionMessage;
+		if (myCollections.length === 0){
+			noOwnCollectionMessage = (
+				<Paper style={{margin:10,padding:10, paddingBottom: 30}}>
+					You have no own Flings, create one:
+					<FloatingActionButton secondary={true} mini={true} style={{position:'relative', top: 10, left: 10}}>
+						<ContentAdd/>
+					</FloatingActionButton>
+				</Paper>
+			)
+		}
 		return(
 			<div className='Home'>
 				<div className="margy padded-left"><h3 className="light marginless">Public Flings</h3></div>
@@ -83,6 +94,7 @@ class Home extends BaseComponent{
 						<CollectionGridListItem index={index} collection={collection} key={collection.id}/>
 					))}
 				</GridList>
+				{noOwnCollectionMessage}
 				<Link to="/add">
 					<FloatingActionButton secondary={true} style={{position:'fixed', bottom:20,right:20}}>
 						<ContentAdd/>
